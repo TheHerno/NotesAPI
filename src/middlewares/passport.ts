@@ -2,6 +2,7 @@ import User, { IUser } from "../models/user";
 import { Strategy, ExtractJwt, StrategyOptions } from "passport-jwt";
 import config from "../config/config";
 
+//TODO mover esto a un .d.ts
 declare global{
   namespace Express{
     interface User extends IUser{}
