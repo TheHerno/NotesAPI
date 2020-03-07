@@ -13,7 +13,6 @@ export default class NotesRespository implements IRepository<INote> {
 
   public async getByUser(user: IUser): Promise<INote[]> {
     user = await user.populate("notes").execPopulate();
-    console.log(user);
     return <INote[]>user.notes;
   }
 
