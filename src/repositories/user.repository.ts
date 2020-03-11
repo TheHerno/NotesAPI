@@ -1,16 +1,13 @@
 import IRepository from "./repository";
 import User, { IUser } from "../models/user";
-import { Types } from "mongoose";
 
 export default class UserRepository implements IRepository<IUser> {
-  constructor() {}
-
-  public async getOne(id: Types.ObjectId): Promise<IUser | null> {
+  public async getOne(id: string): Promise<IUser | null> {
     const user = await User.findById(id);
     return user;
   }
 
-  public async findOne(u: Object): Promise<IUser | null> {
+  public async findOne(u: object): Promise<IUser | null> {
     const user = await User.findOne(u);
     return user;
   }

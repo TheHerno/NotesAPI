@@ -1,19 +1,27 @@
 import IRepository from "./repository";
 import Note, { INote } from "../models/note";
 import { IUser } from "../models/user";
-import { Types } from "mongoose";
 
 export default class NotesRespository implements IRepository<INote> {
-  constructor() {}
-
-  public async getOne(id: Types.ObjectId): Promise<INote | null> {
+  public async getOne(id: string): Promise<INote | null> {
     const note = await Note.findById(id);
     return note;
   }
 
   public async getByUser(user: IUser): Promise<INote[]> {
     user = await user.populate("notes").execPopulate();
-    return <INote[]>user.notes;
+    return user.notes as INote[];
+  }
+
+  public async update(note: INote): Promise<INote> {
+    note = await note.save();
+    return note;
+  }
+
+  public async delete(note: INote, user: IUser): Promise<void> {
+    user.deleteNote(note.id);
+    await user.save();
+    await Note.deleteOne(note);
   }
 
   public async save(note: INote, user: IUser): Promise<INote> {
@@ -24,7 +32,7 @@ export default class NotesRespository implements IRepository<INote> {
   }
 
   public async getAll(): Promise<INote[]> {
-    //no hay getAll
+    // no hay getAll
     return Promise.resolve([]);
   }
 }

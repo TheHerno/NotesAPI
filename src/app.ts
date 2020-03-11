@@ -22,7 +22,7 @@ app.use(passport.initialize());
 
 passport.use(passportMiddleware);
 
-//routes
+// routes
 app.use(authRoutes);
 app.use(notesRoutes);
 

@@ -1,7 +1,8 @@
+/// <reference types="express" />
 import { IUser } from "../models/user";
 
-declare namespace Express {
-  interface User extends IUser {}
+declare module "express" {
+  interface Request {
+    user?: IUser;
+  }
 }
-
-declare module "express-user";

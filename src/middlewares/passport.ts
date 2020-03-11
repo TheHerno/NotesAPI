@@ -1,12 +1,6 @@
-import User, { IUser } from "../models/user";
+import User from "../models/user";
 import { Strategy, ExtractJwt, StrategyOptions } from "passport-jwt";
 import config from "../config/config";
-
-declare global{
-  namespace Express{
-    interface User extends IUser{}
-  }
-}
 
 const opts: StrategyOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -21,6 +15,6 @@ export default new Strategy(opts, async (payload, done) => {
     }
     return done(null, false);
   } catch (error) {
-    console.log(error);
+    return done(error, null);
   }
 });
