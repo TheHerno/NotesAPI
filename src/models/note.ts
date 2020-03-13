@@ -6,7 +6,7 @@ export interface INote extends Document {
   getId: () => Types.ObjectId;
   getTitle: () => string;
   getContent: () => string;
-  setTitle: (title: String) => void;
+  setTitle: (title: string) => void;
   setContent: (content: string) => void;
 }
 
