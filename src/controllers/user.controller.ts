@@ -8,7 +8,7 @@ const userRepo: UserRepository = new UserRepository();
 
 function createToken(user: IUser) {
   return jwt.sign({ id: user.getId(), email: user.getEmail() }, config.jwtSecret, {
-    expiresIn: 86400
+    expiresIn: 86400,
   });
 }
 
@@ -53,7 +53,8 @@ export const signIn = async (req: Request, res: Response): Promise<Response> => 
     const isMatch = await user.comparePassword(req.body.password);
 
     if (isMatch) {
-      return res.status(200).json({ token: createToken(user) });
+      user.password = "";
+      return res.status(200).json({ user, token: createToken(user) });
     }
 
     return res.status(400).json({ error: "Email or password incorrect" });
