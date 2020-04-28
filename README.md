@@ -1,2 +1,4 @@
 # NotesAPI
-API de notas con login para practicar y copiar código de acá
+
+Notes CRUD with signin and signup for practice.
+Using Typescript, Express & Mongoose

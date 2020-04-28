@@ -7,7 +7,7 @@ import config from "../config/config";
 const userRepo: UserRepository = new UserRepository();
 
 function createToken(user: IUser) {
-  return jwt.sign({ id: user.getId(), email: user.getEmail() }, config.jwtSecret, {
+  return jwt.sign({ id: user.getId(), username: user.getUsername() }, config.jwtSecret, {
     expiresIn: 86400,
   });
 }
