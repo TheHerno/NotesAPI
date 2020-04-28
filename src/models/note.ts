@@ -1,13 +1,10 @@
-import { model, Schema, Document, Types } from "mongoose";
+import { Model, Schema, Document, Types, model } from "mongoose";
 
 export interface INote extends Document {
+  _id: Types.ObjectId;
   title: string;
   content: string;
-  getId: () => Types.ObjectId;
-  getTitle: () => string;
-  getContent: () => string;
-  setTitle: (title: string) => void;
-  setContent: (content: string) => void;
+  author: Types.ObjectId;
 }
 
 const noteSchema = new Schema({
@@ -15,32 +12,16 @@ const noteSchema = new Schema({
     type: String,
     required: true,
     lowercase: false,
-    trim: true
+    trim: true,
   },
   content: {
     type: String,
-    trim: true
-  }
+    trim: true,
+  },
+  author: {
+    type: Types.ObjectId,
+    ref: "User",
+  },
 });
 
-noteSchema.methods.getId = function(): Types.ObjectId {
-  return this._id;
-};
-
-noteSchema.methods.getTitle = function(): string {
-  return this.title;
-};
-
-noteSchema.methods.getContent = function(): string {
-  return this.content;
-};
-
-noteSchema.methods.setTitle = function(title: string): void {
-  this.title = title;
-};
-
-noteSchema.methods.setContent = function(content: string): void {
-  this.content = content;
-};
-
-export default model<INote>("Notes", noteSchema);
+export default model<INote>("Note", noteSchema);
